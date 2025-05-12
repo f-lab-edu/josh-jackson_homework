@@ -20,6 +20,26 @@ public class Bytes {
         System.out.println(Arrays.toString(result3));
         // 출력 : [0, 0, 0, 0, 7, 91, -51, 21]
 
+        byte[] result4 = Bytes.fromLong(value, 4);
+        System.out.println(Arrays.toString(result4));
+        // 출력: [0, 0, 0, 0]
+
+    }
+
+    private static byte[] fromLong(long value, int arrayLength) {
+        checkArrayLength1to8(arrayLength);
+
+        byte[] eightByteValueFromLong = fromLong(value);
+        byte[] result = new byte[arrayLength];
+        System.arraycopy(eightByteValueFromLong, 0, result, 0, arrayLength);
+
+        return result;
+    }
+
+    private static void checkArrayLength1to8(int arrayLength) {
+        if (arrayLength < 1 || arrayLength > 8) {
+            throw new IllegalArgumentException("배열의 길이는 1 ~ 8 사이여야 합니다.");
+        }
     }
 
     private static byte[] fromLong(long value) {
