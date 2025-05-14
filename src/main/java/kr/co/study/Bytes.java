@@ -1,5 +1,7 @@
 package kr.co.study;
 
+import java.util.Arrays;
+
 public class Bytes {
     public static void main(String[] args) {
         // toLong
@@ -8,9 +10,26 @@ public class Bytes {
         System.out.println(result); // 출력: 256
 
         // toShort
-        byte[] input2 = new byte[] { 0x01, 0x02 };
+        byte[] input2 = new byte[]{0x01, 0x02};
         short result2 = Bytes.toShort(input2);
         System.out.println(result2);
+
+        // fromLong
+        long value = 123456789L;
+        byte[] result3 = Bytes.fromLong(value);
+        System.out.println(Arrays.toString(result3));
+        // 출력 : [0, 0, 0, 0, 7, 91, -51, 21]
+
+    }
+
+    private static byte[] fromLong(long value) {
+        byte[] result = new byte[8];
+        for (int i = 7; i >= 0; i--) {
+            result[i] = (byte) (value & 0xFF);
+            value >>= 8;
+        }
+
+        return result;
     }
 
     private static long toLong(byte[] bytes) {
@@ -26,7 +45,7 @@ public class Bytes {
 
     private static short toShort(byte[] bytes) {
         checkArrayLengthIs2(bytes);
-        int result  = 0;
+        int result = 0;
         for (byte b : bytes) {
             result <<= 8;
             result |= (b & 0xFF);
