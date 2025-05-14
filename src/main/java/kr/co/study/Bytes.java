@@ -24,6 +24,35 @@ public class Bytes {
         System.out.println(Arrays.toString(result4));
         // 출력: [0, 0, 0, 0]
 
+        byte[] a = new byte[]{0x01, 0x02};
+        byte[] b = new byte[]{0x01, 0x03};
+        int cmp = Bytes.compare(a, b);
+        System.out.println(cmp);
+
+    }
+
+    private static int compare(byte[] a, byte[] b) {
+
+        checkArrayLengthEqual(a, b);
+        for (int i = 0; i < a.length; i++) {
+            int aValue = a[i] & 0xFF;
+            int bValue = b[i] & 0xFF;
+            if (aValue == bValue) {
+                continue;
+            }
+            if (aValue < bValue) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    private static void checkArrayLengthEqual(byte[] a, byte[] b) {
+        if (a.length != b.length) {
+            throw new IllegalArgumentException("두 배열의 길이가 같아야 합니다.");
+        }
     }
 
     private static byte[] fromLong(long value, int arrayLength) {
