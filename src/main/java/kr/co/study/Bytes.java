@@ -2,8 +2,12 @@ package kr.co.study;
 
 import java.util.Arrays;
 
-public class Bytes {
+public final class Bytes {
+
+    private Bytes() {}
+
     public static void main(String[] args) {
+
         // toLong
         byte[] input = new byte[]{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00};
         long result = Bytes.toLong(input);
@@ -103,14 +107,22 @@ public class Bytes {
     }
 
     private static void checkArrayLengthIs8(byte[] bytes) {
+        checkNotNull(bytes);
         if (bytes.length != 8) {
             throw new IllegalArgumentException("배열의 크기가 8이어야 합니다.");
         }
     }
 
     private static void checkArrayLengthIs2(byte[] bytes) {
+        checkNotNull(bytes);
         if (bytes.length != 2) {
             throw new IllegalArgumentException("배열의 크기가 2이어야 합니다.");
+        }
+    }
+
+    private static void checkNotNull(byte[] bytes) {
+        if (bytes == null) {
+            throw new NullPointerException("배열을 아무 값도 참조하고 있지 않습니다.");
         }
     }
 }
